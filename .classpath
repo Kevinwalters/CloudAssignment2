@@ -44,6 +44,10 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/tomcat-util.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/tomcat7-websocket.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/websocket-api.jar"/>
+<<<<<<< HEAD
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+=======
+	<classpathentry kind="lib" path="WebContent/WEB-INF/lib/twitter4j-core-4.0.2.jar"/>
+>>>>>>> origin
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
