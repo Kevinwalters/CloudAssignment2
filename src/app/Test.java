@@ -8,7 +8,7 @@ public class Test {
 
 	public static void main(String[] args) {
 		TwitterDAO dao = new TwitterDAO();
-		List<Object> tweets = new ArrayList<Object>();
+		List<Tweet> tweets = new ArrayList<Tweet>();
 		tweets = dao.getAllTweets();
 		System.out.println(tweets.size());
 	}

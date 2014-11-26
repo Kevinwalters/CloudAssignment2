@@ -38,7 +38,7 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
 public class SimpleQueueServiceSample {
 	
 	public	BasicAWSCredentials credentials = new BasicAWSCredentials("AKIAI2ZCFS3NVEENXW5A", "tI/GgpSWDF/QrNVhtCRu1G+PX/10A2nJQH+yTOiv");
-	public String q_url;
+	public  String q_url;
 	
 	SimpleQueueServiceSample(){
 		q_url = createq();

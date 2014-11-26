@@ -42,7 +42,7 @@ public final class TweetGet {
      *
      * @param args
      */
-    public static void main(String[] args) throws TwitterException {
+    public void startTweet() throws TwitterException {
     	final TwitterDAO dao = new TwitterDAO();
     	final SimpleQueueServiceSample testsqs = new SimpleQueueServiceSample();
     	queue = testsqs.createq();
@@ -147,6 +147,6 @@ public final class TweetGet {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
         }
-        twitterStream.shutdown();
+        //twitterStream.shutdown();
     }
 }

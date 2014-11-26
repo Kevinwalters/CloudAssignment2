@@ -10,11 +10,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import twitter4j.TwitterException;
+
 //@WebServlet("/Twts")
 public class db_Tweets extends HttpServlet {
   private String message;
   protected TweetGet getTweets;
-
+public db_Tweets(){
+	try {
+		getTweets=new TweetGet();
+		getTweets.startTweet();
+	} catch (TwitterException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+}
 
 public void doGet(HttpServletRequest request, HttpServletResponse response)
       throws ServletException, IOException {
