@@ -1,5 +1,7 @@
 package app;
 
+import java.util.Date;
+
 import twitter4j.FilterQuery;
 import twitter4j.GeoLocation;
 import twitter4j.StallWarning;
@@ -9,15 +11,7 @@ import twitter4j.StatusListener;
 import twitter4j.TwitterException;
 import twitter4j.TwitterStream;
 import twitter4j.TwitterStreamFactory;
-import twitter4j.conf.Configuration;
 import twitter4j.conf.ConfigurationBuilder;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
 
 /**
  * <p>This is a code example of Twitter4J Streaming API - sample method support.<br>
@@ -47,6 +41,10 @@ public class TweetGet {
     	final SimpleQueueServiceSample testsqs = new SimpleQueueServiceSample();
     	queue = testsqs.createq();
     	
+    	if (queue.equals("NULL")) {
+    		return;
+    	}
+    		
     	ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
            .setOAuthConsumerKey(oAuthConsumerKey)
@@ -95,14 +93,18 @@ public class TweetGet {
                 
                 for (String keyword : keywords) {
                 	if (text.toUpperCase().contains(keyword.toUpperCase())) {
+                		dao.insertStatus(tweet, keyword);
                 		try {
                 //		hasKeyword = true;
                 			testsqs.sendmsg(tweet);
                 		} catch (Exception e) {
                 			e.printStackTrace();
                 		}
+<<<<<<< HEAD
                 		dao.insertStatus(tweet, keyword);
         
+=======
+>>>>>>> 5045188f92f727c814a6e93758296ed74b7e5969
                 	}
                 }
                 //if (!hasKeyword) {
