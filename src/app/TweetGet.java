@@ -84,6 +84,13 @@ public class TweetGet {
                 
                 Tweet tweet = new Tweet(userId, statusId, screenName, text, latitude, longitude, createdTime);
                 //boolean hasKeyword = false;
+                try {
+					testsqs.sendmsg(tweet);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                
                 for (String keyword : keywords) {
                 	if (text.toUpperCase().contains(keyword.toUpperCase())) {
                 		dao.insertStatus(tweet, keyword);
@@ -93,12 +100,20 @@ public class TweetGet {
                 		} catch (Exception e) {
                 			e.printStackTrace();
                 		}
+<<<<<<< HEAD
+                		dao.insertStatus(tweet, keyword);
+        
+=======
+>>>>>>> 5045188f92f727c814a6e93758296ed74b7e5969
                 	}
                 }
                 //if (!hasKeyword) {
                 //	dao.insertStatus(tweet, "none");
                 //}
+            
             }
+            
+            
 
             @Override
             public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
