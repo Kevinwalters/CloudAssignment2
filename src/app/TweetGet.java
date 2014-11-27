@@ -100,11 +100,7 @@ public class TweetGet {
                 		} catch (Exception e) {
                 			e.printStackTrace();
                 		}
-<<<<<<< HEAD
                 		dao.insertStatus(tweet, keyword);
-        
-=======
->>>>>>> 5045188f92f727c814a6e93758296ed74b7e5969
                 	}
                 }
                 //if (!hasKeyword) {
