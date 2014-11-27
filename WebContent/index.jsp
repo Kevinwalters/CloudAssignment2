@@ -13,7 +13,7 @@
     </style>
     
     <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-    
+    <script src="./static/markerclusterer.js" type="text/javascript"></script>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?libraries=sensor=false">
     </script> 
@@ -47,10 +47,12 @@
       var lat;
       var lng;
 	  var item = document.getElementById("loading");
+	  var markerCluster = new MarkerClusterer(map, markers); 
 	  item.style.display="block"
       $.getJSON("Twts", {keyword:$('#keyword').val()}, function(data) {
     	  if(data.success && data.loc.length > 0){
-		  removeMarkers();
+    		  deleteMarkers();
+		  markerCluster.clearMarkers();
           var bounds = new google.maps.LatLngBounds ();
 			  for(var i = 0; i < data.loc.length; i++){
 				var coords = data.loc[i];
@@ -73,6 +75,10 @@
 				markers.push(marker);
 				bounds.extend(location);
 			}
+			  markerCluster = new MarkerClusterer(map, markers, {
+	                minZoom: 2,
+	                maxZoom: 6,
+	              });
         }
 
       });
@@ -80,12 +86,32 @@
       return false; // prevents the page from refreshing before JSON is read from server response
   }
   
-  function removeMarkers() {
+    function removeMarkers() {
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].setMap(null);
 		}
 		markers = []
   }
+
+  
+  function deleteMarkers() {
+      clearMarkers();
+      markers = [];
+    }
+   function clearMarkers() {
+       setAllMap(null);
+    }
+   function setAllMap(map) {
+      for (var i = 0; i < markers.length; i++) {
+        markers[i].setMap(map);
+      }
+    }
+   
+   function clearClusters(e) {
+       e.preventDefault();
+       e.stopPropagation();
+       markerCluster.clearMarkers();
+     }
 
   </script>
   </head>

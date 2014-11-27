@@ -8,8 +8,6 @@
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.web.container"/>
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
-	<classpathentry kind="lib" path="aws-java-sdk-1.8.10.2.jar"/>
-	<classpathentry kind="lib" path="aws-java-sdk-core-1.8.10.2.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/annotations-api.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/aspectjrt.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/aspectjweaver.jar"/>
@@ -47,5 +45,7 @@
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/tomcat7-websocket.jar"/>
 	<classpathentry kind="lib" path="WebContent/WEB-INF/classes/websocket-api.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="/Users/CC/Downloads/CloudAssignment2/alchemyapi_java/dist/AlchemyAPI-Sentiment-Test.jar"/>
+	<classpathentry kind="lib" path="/Users/CC/Downloads/CloudAssignment2/alchemyapi_java/dist/AlchemyAPI.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

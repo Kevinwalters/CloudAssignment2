@@ -26,7 +26,7 @@ import java.util.List;
  *
  * @author Yusuke Yamamoto - yusuke at mac.com
  */
-public final class TweetGet {
+public class TweetGet {
 
 	private static String oAuthConsumerKey = "oQ7aCFiY7cjfmLUutJiouvzw5";
 	private static String oAuthConsumerSecret = "mturYGKTi7CXhRlK9gkSJWF8XKyV1pTRLX7n2OBBydYKBTL9e6";
@@ -86,6 +86,13 @@ public final class TweetGet {
                 
                 Tweet tweet = new Tweet(userId, statusId, screenName, text, latitude, longitude, createdTime);
                 //boolean hasKeyword = false;
+                try {
+					testsqs.sendmsg(tweet);
+				} catch (Exception e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+                
                 for (String keyword : keywords) {
                 	if (text.toUpperCase().contains(keyword.toUpperCase())) {
                 		try {
@@ -95,12 +102,16 @@ public final class TweetGet {
                 			e.printStackTrace();
                 		}
                 		dao.insertStatus(tweet, keyword);
+        
                 	}
                 }
                 //if (!hasKeyword) {
                 //	dao.insertStatus(tweet, "none");
                 //}
+            
             }
+            
+            
 
             @Override
             public void onDeletionNotice(StatusDeletionNotice statusDeletionNotice) {
@@ -132,21 +143,22 @@ public final class TweetGet {
             }
         };
         FilterQuery fq = new FilterQuery();
-        String keywords[] = {"ISIS", "NFL", "Ebola","Interstellar","Thanksgiving","Christopher Nolan","Winter","NYC","Obama"};
+        //String keywords[] = {"ISIS", "NFL", "Ebola","Interstellar","Thanksgiving","Christopher Nolan","Winter","NYC","Obama"};
+        
         String lang[] = {"en","es"};
         fq.track(keywords).language(lang);
 
         twitterStream.addListener(listener);
         //twitterStream.sample();
         twitterStream.filter(fq);
-        try {
+        /*try {
         	synchronized (lock) {
         		lock.wait();
         	}
         } catch (InterruptedException e) {
         	// TODO Auto-generated catch block
         	e.printStackTrace();
-        }
+        }*/
         //twitterStream.shutdown();
     }
 }

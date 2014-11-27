@@ -16,7 +16,10 @@ package app;
  */
 import com.amazonaws.AmazonClientException;
 import com.amazonaws.AmazonServiceException;
+import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.BasicAWSCredentials;
+import com.amazonaws.auth.PropertiesCredentials;
+import com.amazonaws.auth.profile.ProfileCredentialsProvider;
 import com.amazonaws.regions.Region;
 import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
@@ -37,23 +40,27 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
  */
 public class SimpleQueueServiceSample {
 	
-	public	BasicAWSCredentials credentials = new BasicAWSCredentials("AKIAI2ZCFS3NVEENXW5A", "tI/GgpSWDF/QrNVhtCRu1G+PX/10A2nJQH+yTOiv");
 	public  String q_url;
 	
 	SimpleQueueServiceSample(){
 		q_url = createq();
 	}
 	
+	AWSCredentials credentials=null;
+	
 public String createq(){
-	try {
-//          credentials = new ProfileCredentialsProvider("default").getCredentials();
-    } catch (Exception e) {
-        throw new AmazonClientException(
-                "Cannot load the credentials from the credential profiles file. " +
-                "Please make sure that your credentials file is at the correct " +
-                "location (/Users/daniel/.aws/credentials), and is in valid format.",
-                e);
-    }
+	
+	
+  try {
+      credentials = new ProfileCredentialsProvider("default").getCredentials();
+  } catch (Exception e) {
+      throw new AmazonClientException(
+              "Cannot load the credentials from the credential profiles file. " +
+              "Please make sure that your credentials file is at the correct " +
+              "location (/Users/daniel/.aws/credentials), and is in valid format.",
+              e);
+  }
+
 
 	AmazonSQS sqs = new AmazonSQSClient(credentials);
     Region usWest2 = Region.getRegion(Regions.US_WEST_2);
