@@ -46,7 +46,7 @@
 	  item.style.display="block"
       $.getJSON("Twts", {keyword:$('#keyword').val()}, function(data) {
     	  if(data.success && data.loc.length > 0){
-    		  deleteMarkers();
+    		  removeMarkers();
 		  markerCluster.clearMarkers();
           var bounds = new google.maps.LatLngBounds ();
 			  for(var i = 0; i < data.loc.length; i++){
@@ -70,10 +70,10 @@
 				markers.push(marker);
 				bounds.extend(location);
 			}
-			  markerCluster = new MarkerClusterer(map, markers, {
-	                minZoom: 2,
-	                maxZoom: 6,
-	              });
+			markerCluster = new MarkerClusterer(map, markers, {
+	              minZoom: 2,
+	              maxZoom: 6,
+            });
         }
 
       });
@@ -117,12 +117,15 @@
   </div>
   <div id="messages"></div>
   <script type="text/javascript">
-    var webSocket = 
-      new WebSocket('ws://localhost:8080/TwittMap/receiveSNS');
-
+  if ("WebSocket" in window){
+    var webSocket = new WebSocket('ws://assignment2.elasticbeanstalk.com:8080/receiveSNS');
     webSocket.onerror = function(event) {
       onError(event);
     };
+    
+    webSocket.onclose = function(event) {
+    	onClose(event);
+    }
 
     webSocket.onopen = function(event) {
       onOpen(event);
@@ -131,12 +134,23 @@
     webSocket.onmessage = function(event) {
       onMessage(event);
     };
+    
+  } else {
+	  alert("Not supported");
+  }
+    
+    function onClose(event) {
+    	var code = event.code;
+    	var reason = event.reason;
+    	var wasClean = event.wasClean;
+    	alert(code + "; " + reason + "; " + wasClean);
+    }
 
     function onMessage(event) {
       //document.getElementById('messages').innerHTML 
       //  += '<br />' + event.data;
         
-      alert(event);
+      alert(event.data);
       
         obj = JSON && JSON.parse(event) || $.parseJSON(json);
         
@@ -164,12 +178,12 @@
     }
 
     function onOpen(event) {
-      document.getElementById('messages').innerHTML 
-        = 'Connection established';
+      alert("connected...");
+      webSocket.send('opening socket');
     }
 
     function onError(event) {
-      alert(event.data);
+      alert("error")
     }
 
     function start() {
