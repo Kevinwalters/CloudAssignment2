@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <title>TwitMap_v1</title>
+    <title>TwitMap_v2</title>
     <style type="text/css">
       html { height: 100% }
       body { height: 100%; margin: 0; padding: 0 }
@@ -21,6 +21,7 @@
     <script>
     var map;
 	var markers = [];
+	var current_keyword;
   
     function initialize() {
     var Options = {
@@ -29,25 +30,19 @@
       };
     
     map = new google.maps.Map(document.getElementById('map'), Options);
-    //var location = new google.maps.LatLng(131.044922, -25.363882);
-    //var marker = new google.maps.Marker({
-    //    position: location,
-    //    map: map,
-    //    title:"Hello World!"
-    //});
-    
     }
 
     google.maps.event.addDomListener(window, 'load', initialize);
   
     function TWonClick() {
-    if($("#keyword").val() == 0){
-      return false;
-    }
+      if($("#keyword").val() == 0){
+        return false;
+      }
+      current_keyword = $("#keyword").val();
       var lat;
       var lng;
 	  var item = document.getElementById("loading");
-	  item.style.display="block"
+	  item.style.display="block";
       $.getJSON("Twts", {keyword:$('#keyword').val()}, function(data) {
     	  if(data.success && data.loc.length > 0){
 		  removeMarkers();
@@ -76,7 +71,7 @@
         }
 
       });
-	  item.style.display="none"
+	  item.style.display="none";
       return false; // prevents the page from refreshing before JSON is read from server response
   }
   
@@ -84,7 +79,7 @@
 		for (var i = 0; i < markers.length; i++) {
 			markers[i].setMap(null);
 		}
-		markers = []
+		markers = [];
   }
 
   </script>
@@ -97,23 +92,49 @@
   <div id="messages"></div>
   <script type="text/javascript">
     var webSocket = 
-      new WebSocket('ws://localhost:8080/TwittMap/echo');
+      new WebSocket('ws://localhost:8080/TwittMap/receiveSNS');
 
     webSocket.onerror = function(event) {
-      onError(event)
+      onError(event);
     };
 
     webSocket.onopen = function(event) {
-      onOpen(event)
+      onOpen(event);
     };
 
     webSocket.onmessage = function(event) {
-      onMessage(event)
+      onMessage(event);
     };
 
     function onMessage(event) {
-      document.getElementById('messages').innerHTML 
-        += '<br />' + event.data;
+      //document.getElementById('messages').innerHTML 
+      //  += '<br />' + event.data;
+        
+      alert(event);
+      
+        obj = JSON && JSON.parse(event) || $.parseJSON(json);
+        
+        lat = obj.lat;
+		lng = obj.lng;
+		if (lng == undefined) {
+			lng = 0.0;
+		}
+		if (lat == undefined) {
+			lat = 0.0;
+		}
+		if (lat == 0.0 && lng == 0.0) {
+			return;
+		}
+		if (current_keyword != obj.keyword) {
+			return;
+		}
+		var location = new google.maps.LatLng(lat, lng);
+		var marker = new google.maps.Marker({
+		  position : location,
+		  map : map
+		});
+		markers.push(marker);
+		bounds.extend(location); 
     }
 
     function onOpen(event) {
@@ -126,7 +147,7 @@
     }
 
     function start() {
-      webSocket.send('hello');
+      webSocket.send('opening socket');
       return false;
     }
   </script>
@@ -145,11 +166,10 @@
           <option value="winter">Winter</option>
           <option value="NYC">NYC</option>
           <option value="obama">Obama</option>
-  
         </select>
         <button type="submit" class="btn" id="go" onclick="return TWonClick();">Plot!</button>
-		&nbsp;<div id="loading" style="display:none; ">Loading...</div>
       </form>
+      &nbsp;<div id="loading" style="display:none; ">Loading...</div>
       </p>
     </div> 
  <div id="map">
