@@ -10,6 +10,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import app.Tweet;
+import app.TweetGet;
+import app.TwitterDAO;
 import twitter4j.TwitterException;
 
 //@WebServlet("/Twts")
@@ -70,7 +73,7 @@ public class db_Tweets extends HttpServlet {
 	}
 	  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
+		//doGet(request, response);
     }
 
 }

@@ -53,6 +53,11 @@ public class TranscoderSNSServlet extends HttpServlet {
 	public void onOpen(final Session session) {
 		System.out.println("Client connected");
 		sessions.add(session);
+//		try {
+//			session.getBasicRemote().sendText("Opened");
+//		} catch (Exception e) {
+//			e.printStackTrace();
+//		}
 	}
 
 	@OnClose
@@ -63,6 +68,16 @@ public class TranscoderSNSServlet extends HttpServlet {
 	    } catch (Exception e) {
 	    	
 	    }
+	}
+	
+	@OnMessage
+	public void onMessage(final Session session) {
+	    System.out.println("Connection closed");
+	    try {
+			session.getBasicRemote().sendText("Got message");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 
@@ -76,6 +91,7 @@ public class TranscoderSNSServlet extends HttpServlet {
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException, SecurityException{
 		System.out.println("=====================================IN DOPOST================================");
 		//Get the message type header.
@@ -96,6 +112,19 @@ public class TranscoderSNSServlet extends HttpServlet {
 		scan.close();
 
 		SNSMessage msg = readMessageFromJson(builder.toString());
+		
+		if (msg == null) {
+			for (Session s : sessions) {
+				if (s.isOpen()) {
+					try {
+						s.getBasicRemote().sendText("NULL");
+					} catch (Exception e) {
+						
+					}
+				}
+			}
+			return;
+		}
 
 		// The signature is based on SignatureVersion 1. 
 		// If the sig version is something other than 1, 

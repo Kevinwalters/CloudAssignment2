@@ -95,7 +95,7 @@ public String createq(){
  return "NULL";  
 }
 	
-public void sendmsg(Tweet t) throws Exception {
+public void sendmsg(Tweet t,String keyword) throws Exception {
 
     /*
      * The ProfileCredentialsProvider will return your [default]
@@ -116,7 +116,7 @@ public void sendmsg(Tweet t) throws Exception {
        
         // Send a message
         System.out.println("Sending a message to TweetQueue.\n");
-        sqs.sendMessage(new SendMessageRequest(q_url, t.getUserId()+"||"+t.getStatusId()+"||"+t.getScreenName()+"||"+t.getText()));
+        sqs.sendMessage(new SendMessageRequest(q_url, t.getUserId()+"||"+t.getStatusId()+"||"+t.getScreenName()+"||"+t.getText()+"||"+keyword));
         System.out.println("Reached beyond receiving");
 
         
