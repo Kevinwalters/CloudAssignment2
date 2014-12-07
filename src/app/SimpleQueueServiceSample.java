@@ -25,6 +25,8 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.services.sqs.AmazonSQS;
 import com.amazonaws.services.sqs.AmazonSQSClient;
 import com.amazonaws.services.sqs.model.CreateQueueRequest;
+import com.amazonaws.services.sqs.model.GetQueueUrlRequest;
+import com.amazonaws.services.sqs.model.GetQueueUrlResult;
 import com.amazonaws.services.sqs.model.SendMessageRequest;
 
 /**
@@ -39,6 +41,8 @@ import com.amazonaws.services.sqs.model.SendMessageRequest;
  * the credentials file in your source directory.
  */
 public class SimpleQueueServiceSample {
+	
+	private final String SQS_QUEUE_NAME = "awseb-e-tv4yaament-stack-AWSEBWorkerQueue-1P5K8FVIIZO9W";
 	
 	public  String q_url;
 	
@@ -67,12 +71,10 @@ public String createq(){
     sqs.setRegion(usWest2);
     
     try {
-        // Create a queue
-        System.out.println("Creating a new SQS queue called MyQueue.\n");
-        CreateQueueRequest createQueueRequest = new CreateQueueRequest("Tweet");
-        String myQueueUrl = sqs.createQueue(createQueueRequest).getQueueUrl();
-        
-        System.out.println("Created a queue");
+    	GetQueueUrlResult getQueueUrlResult = sqs.getQueueUrl(SQS_QUEUE_NAME);
+    	String myQueueUrl = getQueueUrlResult.getQueueUrl();
+
+    	System.out.println("Got queue: " + myQueueUrl);
 
      return myQueueUrl;
     } catch (AmazonServiceException ase) {

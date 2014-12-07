@@ -95,9 +95,7 @@ public class TweetGet {
          					e1.printStackTrace();
          				}
                         
-                		 
-
-                		dao.insertStatus(tweet, keyword);
+                		//dao.insertStatus(tweet, keyword);
                 	}
                 }
                 //if (!hasKeyword) {

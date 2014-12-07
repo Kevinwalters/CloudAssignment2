@@ -112,13 +112,11 @@
   </head>
  
   <body>
-     <div>
-    <input type="submit" value="Start" onclick="start()" />
-  </div>
   <div id="messages"></div>
   <script type="text/javascript">
   if ("WebSocket" in window){
-    var webSocket = new WebSocket('ws://assignment2.elasticbeanstalk.com:8080/receiveSNS');
+	var wsUri = "ws://" + document.location.host + document.location.pathname + "receiveSNS";
+    var webSocket = new WebSocket(wsUri);
     webSocket.onerror = function(event) {
       onError(event);
     };
@@ -150,7 +148,7 @@
       //document.getElementById('messages').innerHTML 
       //  += '<br />' + event.data;
         
-      alert(event.data);
+      //alert(event.data);
       
         obj = JSON && JSON.parse(event) || $.parseJSON(json);
         
@@ -183,12 +181,7 @@
     }
 
     function onError(event) {
-      alert("error")
-    }
-
-    function start() {
-      webSocket.send('opening socket');
-      return false;
+      alert("error: " + event.data);
     }
   </script>
      <div id="panel">

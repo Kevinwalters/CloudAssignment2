@@ -7,8 +7,11 @@ import java.security.Signature;
 import java.security.cert.CertificateFactory;
 import java.security.cert.X509Certificate;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
+import java.util.Set;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -38,7 +41,7 @@ import app.SNSMessage;
 public class TranscoderSNSServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
-	private static List<Session> sessions = new ArrayList<Session>();
+	private static Set<Session> sessions = Collections.synchronizedSet(new HashSet<Session>());
 
 
 	/**
@@ -50,7 +53,7 @@ public class TranscoderSNSServlet extends HttpServlet {
 	}
 	
 	@OnOpen
-	public void onOpen(final Session session) {
+	public void onOpen(Session session) {
 		System.out.println("Client connected");
 		sessions.add(session);
 //		try {
@@ -61,7 +64,7 @@ public class TranscoderSNSServlet extends HttpServlet {
 	}
 
 	@OnClose
-	public void onClose(final Session session) {
+	public void onClose(Session session) {
 	    System.out.println("Connection closed");
 	    try {
 	    	sessions.remove(session);
@@ -71,8 +74,7 @@ public class TranscoderSNSServlet extends HttpServlet {
 	}
 	
 	@OnMessage
-	public void onMessage(final Session session) {
-	    System.out.println("Connection closed");
+	public void onMessage(String message, Session session) throws IOException, InterruptedException {
 	    try {
 			session.getBasicRemote().sendText("Got message");
 		} catch (Exception e) {
