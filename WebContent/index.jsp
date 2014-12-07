@@ -115,7 +115,7 @@
   <div id="messages"></div>
   <script type="text/javascript">
   if ("WebSocket" in window){
-	var wsUri = "ws://" + document.location.host + document.location.pathname + "receiveSNS";
+	var wsUri = "ws://assignment-2.elasticbeanstalk.com:8080/receiveSNS";
     var webSocket = new WebSocket(wsUri);
     webSocket.onerror = function(event) {
       onError(event);
@@ -134,7 +134,7 @@
     };
     
   } else {
-	  alert("Not supported");
+	  alert("Browser not supported for real-time updates");
   }
     
     function onClose(event) {
@@ -148,7 +148,7 @@
       //document.getElementById('messages').innerHTML 
       //  += '<br />' + event.data;
         
-      //alert(event.data);
+      alert(event.data);
       
         obj = JSON && JSON.parse(event) || $.parseJSON(json);
         

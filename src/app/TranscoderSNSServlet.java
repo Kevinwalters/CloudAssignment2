@@ -56,11 +56,11 @@ public class TranscoderSNSServlet extends HttpServlet {
 	public void onOpen(Session session) {
 		System.out.println("Client connected");
 		sessions.add(session);
-//		try {
-//			session.getBasicRemote().sendText("Opened");
-//		} catch (Exception e) {
-//			e.printStackTrace();
-//		}
+		try {
+			session.getBasicRemote().sendText("Opened");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@OnClose
