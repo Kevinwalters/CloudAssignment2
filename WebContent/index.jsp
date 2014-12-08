@@ -46,7 +46,10 @@
 	  item.style.display="block"
       $.getJSON("Twts", {keyword:$('#keyword').val()}, function(data) {
     	  if(data.success && data.loc.length > 0){
+<<<<<<< HEAD
     		  alert("got data");
+=======
+>>>>>>> 38953e265f0ccd05acb52cf1a4699a30865c6ca4
     		  removeMarkers();
 		  markerCluster.clearMarkers();
           var bounds = new google.maps.LatLngBounds ();
@@ -116,7 +119,11 @@
   <div id="messages"></div>
   <script type="text/javascript">
   if ("WebSocket" in window){
+<<<<<<< HEAD
 	var wsUri = "ws://localhost:8080/TwittMap/receiveSNS";
+=======
+	var wsUri = "ws://assignment-2.elasticbeanstalk.com:8080/receiveSNS";
+>>>>>>> 38953e265f0ccd05acb52cf1a4699a30865c6ca4
     var webSocket = new WebSocket(wsUri);
     webSocket.onerror = function(event) {
       onError(event);
