@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <projectDescription>
+<<<<<<< HEAD
 	<name>worker</name>
+=======
+	<name>TwittMap</name>
+>>>>>>> a3ec2751e430a0a6d7b946dd8300491920866035
 	<comment></comment>
 	<projects>
 	</projects>
