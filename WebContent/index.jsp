@@ -114,7 +114,9 @@
   <div id="messages"></div>
   <script type="text/javascript">
   if ("WebSocket" in window){
+
 	var wsUri = "ws://assign2.elasticbeanstalk.com:8080/receiveSNS";
+
     var webSocket = new WebSocket(wsUri);
     webSocket.onerror = function(event) {
       onError(event);

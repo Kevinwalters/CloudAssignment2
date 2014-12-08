@@ -38,6 +38,10 @@ public class TweetGet {
      */
     public void startTweet() throws TwitterException {
     	final TwitterDAO dao = new TwitterDAO();
+<<<<<<< HEAD
+    	final SQSMessage testsqs = new SQSMessage();
+    	
+=======
     	final SimpleQueueServiceSample testsqs = new SimpleQueueServiceSample();
     	queue = testsqs.createq();
     	
@@ -45,6 +49,7 @@ public class TweetGet {
     		return;
     	}
     		
+>>>>>>> 38953e265f0ccd05acb52cf1a4699a30865c6ca4
     	ConfigurationBuilder cb = new ConfigurationBuilder();
         cb.setDebugEnabled(true)
            .setOAuthConsumerKey(oAuthConsumerKey)
