@@ -11,7 +11,7 @@ import app.SNSMessage;
 public enum SNSHelper {
 	INSTANCE;
 	
-	private AWSCredentials credentials = new BasicAWSCredentials("AKIAIZNDFYQ2YSWZNQUQ", "gQ9z9kBpS4L6PTv8z5oZnMKgZud0HnfCD/X+BGXU");
+	private AWSCredentials credentials = new BasicAWSCredentials("AKIAICQ734T7IIRSVW5Q", "c9iA5P0OZzLjst/3V5UrKdN3DsJeVZBSFQjIw1c/");
 	private AmazonSNSClient amazonSNSClient = new AmazonSNSClient(credentials);
 	
 	public void confirmTopicSubmission(SNSMessage message) {

@@ -5,35 +5,28 @@ import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 //import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import app.Tweet;
-import app.TweetGet;
-import app.TwitterDAO;
-import twitter4j.TwitterException;
-
 //@WebServlet("/Twts")
 public class db_Tweets extends HttpServlet {
 	private String message;
-	protected TweetGet getTweets;
+	//protected TweetGet getTweets;
 	
-	public db_Tweets(){
-		try {
-			getTweets=new TweetGet();
-			getTweets.startTweet();
-		} catch (TwitterException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-
+//	public db_Tweets(){
+//		try {
+//			getTweets=new TweetGet();
+//			getTweets.startTweet();
+//		} catch (TwitterException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	public void doGet(HttpServletRequest request, HttpServletResponse response)
 	      throws ServletException, IOException {
-		String key;
+		//String key;
 		Long id;
 		String coordinates;
 	
@@ -47,7 +40,7 @@ public class db_Tweets extends HttpServlet {
 			TwitterDAO dbobject;
 			System.out.println("Test pt1: Running");
 		
-			key = request.getParameter("kbselect");
+			//key = request.getParameter("kbselect");
 			dbobject = new TwitterDAO();
 			List<Tweet> results = dbobject.getFilteredTweets(request.getParameter("keyword"));
 			
@@ -74,7 +67,7 @@ public class db_Tweets extends HttpServlet {
 	}
 	  
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		//doGet(request, response);
+		doGet(request, response);
     }
 
 }

@@ -88,7 +88,6 @@
 		markers = [];
   }
 
-  
   function deleteMarkers() {
       clearMarkers();
       markers = [];
@@ -115,7 +114,7 @@
   <div id="messages"></div>
   <script type="text/javascript">
   if ("WebSocket" in window){
-	var wsUri = "ws://assignment-2.elasticbeanstalk.com:8080/receiveSNS";
+	var wsUri = "ws://assign2.elasticbeanstalk.com:8080/receiveSNS";
     var webSocket = new WebSocket(wsUri);
     webSocket.onerror = function(event) {
       onError(event);
